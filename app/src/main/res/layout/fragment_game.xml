@@ -16,9 +16,8 @@
             android:id="@+id/textViewTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
+            android:layout_gravity="end"
             android:text="TextView"
-            android:textColor="#00AAFE"
             android:textSize="@dimen/game_score_size"
             android:textStyle="bold"
             tool:text="01:52"/>
@@ -28,7 +27,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TextView"
-            android:textColor="#00DB8E"
             android:textSize="@dimen/game_score_size"
             android:textStyle="bold"
             tool:text="23"/>
@@ -36,7 +34,7 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:layout_weight="1"
         android:id="@+id/swipe_container">
 
