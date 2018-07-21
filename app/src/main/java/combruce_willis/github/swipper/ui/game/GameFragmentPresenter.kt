@@ -1,5 +1,6 @@
 package combruce_willis.github.swipper.ui.game
 
+import combruce_willis.github.swipper.data.Square
 import combruce_willis.github.swipper.data.SquaresRepository
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -18,7 +19,11 @@ class GameFragmentPresenter(_view : GameFragmentView?,
         view = _view
     }
 
-    fun requestNewSquares(quantity : Int) = repository.getSquares(quantity)
+    fun requestNewSquares(quantity : Int): MutableList<Square> {
+        val squares = repository.getSquares(quantity)
+        view?.onItemsReceived(squares)
+        return squares
+    }
 
     fun setUpTimerTask() {
         timerDisposable = Observable.interval(1, TimeUnit.SECONDS)
@@ -26,6 +31,11 @@ class GameFragmentPresenter(_view : GameFragmentView?,
             .observeOn(AndroidSchedulers.mainThread())
                 .subscribe { view?.updateCurrentTime() }
 
+    }
+
+    fun onGameOver() {
+        timerDisposable.dispose()
+        view?.onGameOver()
     }
 
     fun onWrongSwipe(penalty : Int) {

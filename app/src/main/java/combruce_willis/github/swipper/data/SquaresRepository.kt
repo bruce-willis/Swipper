@@ -4,17 +4,14 @@ import java.util.*
 
 class SquaresRepository {
 
+    private val randomAction = Random()
+
     fun getSquares(quantity : Int): MutableList<Square> {
-        val squares = mutableListOf<Square>()
-        for (i in 1..quantity) {
-            squares.add(createRandomSquare())
-        }
-        return squares
+        return MutableList(quantity) {createRandomSquare()}
     }
 
     private fun createRandomSquare(): Square {
-        val randomAction = Random(5)
-        return when (randomAction.nextInt()) {
+        return when (randomAction.nextInt(5)) {
             0 -> Square(Action.LEFT)
             1 -> Square(Action.RIGHT)
             2 -> Square(Action.DOWN)
