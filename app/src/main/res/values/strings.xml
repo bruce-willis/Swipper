@@ -9,4 +9,5 @@
 
     <string name="game_game_over">Game over</string>
     <string name="game_try_again">Try again</string>
+    <string name="game_over">Упс!</string>
 </resources>

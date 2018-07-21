@@ -4,12 +4,15 @@ import android.content.Context
 import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import combruce_willis.github.swipper.R
 import combruce_willis.github.swipper.data.Square
 import combruce_willis.github.swipper.data.SquaresRepository
+import combruce_willis.github.swipper.ui.Card
+import kotlinx.android.synthetic.main.fragment_game.*
 
 class GameFragment : Fragment(), GameFragmentView {
 
@@ -19,6 +22,7 @@ class GameFragment : Fragment(), GameFragmentView {
 
     private var currentTime = INITIAL_TIME
     private var maxScore = 0
+    private var score = 0
 
     companion object {
        private const val SQUARES_STACK_SIZE = 50
@@ -32,11 +36,13 @@ class GameFragment : Fragment(), GameFragmentView {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
+
         if (context is OnFragmentInteractionListener) {
             listener = context
         } else {
-            throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
+            //throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
         }
+
         maxScore = context
                 .getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
                 .getInt("max_score", 0)
@@ -49,25 +55,86 @@ class GameFragment : Fragment(), GameFragmentView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+//        cv_squares.setCardEventListener(object : CardStackView.CardEventListener {
+//            override fun onCardDragging(percentX: Float, percentY: Float) {
+//
+//            }
+//
+//            override fun onCardReversed() {
+//            }
+//
+//            override fun onCardMovedToOrigin() {
+//            }
+//
+//            override fun onCardClicked(index: Int) {
+//            }
+//
+//            override fun onCardSwiped(direction: SwipeDirection?) {
+//
+//            }
+//
+//
+//        })
+//        adapter = CardAdapter(context!!, object : TouchCallback {
+//            override fun onItemTapped(square: Square) {
+//
+//            }
+//
+//        })
+//        cv_squares.setAdapter(adapter)
         repository = SquaresRepository()
         presenter = GameFragmentPresenter(this, repository)
         squares = presenter.requestNewSquares(SQUARES_STACK_SIZE)
+
+//        swipeView!!.builder
+//                .setDisplayViewCount(4)
+
+
+        for (square in squares) {
+            swipeView!!.addView(Card(square, presenter))
+        }
     }
 
-    override fun onItemsRecieved(squares: List<Square>) {
+
+
+    override fun onItemsReceived(squares: MutableList<Square>?) {
+        Log.i("TAG","ON ITEMS RECEIVED ${squares?.size}")
+        //adapter.updateDataSet(squares)
 
     }
 
     override fun updateCurrentTime() {
-        currentTime -= 1
+        if (currentTime == 0) {
+            presenter.onGameOver()
+        } else {
+            currentTime -= 1
+            tv_time.text = currentTime.toString()
+        }
     }
 
     override fun onCorrectSwipe() {
         currentTime += EXTRA_TIME
+        score += 0
+        if (score > maxScore) maxScore = score
     }
 
     override fun onWrongSwipe(penalty: Int) {
         currentTime -= penalty
+    }
+
+    override fun onGameOver() {
+//        MaterialDialog.Builder(context!!)
+//                .title(R.string.game_over)
+//                .content("Вы проиграли! :( Ваш счет: $score")
+//                .positiveText("Пропробовать снова")
+//                .onPositive { dialog, which ->
+//                    score = 0
+//                    presenter.requestNewSquares(100)
+//                    presenter.setUpTimerTask()
+//                    currentTime = INITIAL_TIME
+//                    score = 0
+//                }
+//                .show()
     }
 
     override fun onResume() {
@@ -85,5 +152,9 @@ class GameFragment : Fragment(), GameFragmentView {
 
     private interface OnFragmentInteractionListener {
         fun onFragmentInteraction(uri: Uri)
+    }
+
+    interface TouchCallback {
+        fun onItemTapped(square : Square)
     }
 }
