@@ -30,9 +30,9 @@ class MainActivity : AppCompatActivity(), LauncherFragment.OnScreenOpenListener 
     }
 
     private fun changeFragment(fragment: Fragment) {
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.main_container, fragment)
-        transaction.addToBackStack(null)
-        transaction.commit()
+        supportFragmentManager.beginTransaction()
+                .replace(R.id.main_container, fragment)
+                .addToBackStack(null)
+                .commit()
     }
 }
