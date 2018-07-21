@@ -21,6 +21,7 @@ import combruce_willis.github.swipper.data.Square
 import combruce_willis.github.swipper.data.SquaresRepository
 import combruce_willis.github.swipper.ui.view.Card
 import kotlinx.android.synthetic.main.fragment_game.*
+import kotlinx.android.synthetic.main.view_square.*
 
 class GameFragment : Fragment(), GameFragmentView {
 
@@ -58,8 +59,7 @@ class GameFragment : Fragment(), GameFragmentView {
         super.onViewCreated(view, savedInstanceState)
         swipeView.builder
                 .setSwipeType(SWIPE_TYPE_HORIZONTAL)
-                .setSwipeHorizontalThreshold(1)
-                .setWidthSwipeDistFactor(0.1f)
+                .setSwipeHorizontalThreshold(30)
                 .setSwipeDecor(SwipeDecor()
                         .setSwipeAnimFactor(0.1f)
                         .setSwipeAnimTime(0)
@@ -68,14 +68,18 @@ class GameFragment : Fragment(), GameFragmentView {
         repository = SquaresRepository()
         presenter = GameFragmentPresenter(this, repository)
         presenter.requestNewSquares(SQUARES_STACK_SIZE)
+        swipeView.addItemRemoveListener { if ((it + 1) % SQUARES_STACK_SIZE == 0)
+            presenter.requestNewSquares(SQUARES_STACK_SIZE)}
     }
 
     override fun onItemsReceived(squares: MutableList<Square>?) {
         squares?.forEach { swipeView.addView(Card(it, object : GameFragment.TouchCallback {
             override fun onItemTapped(square: Square) {
-                if (it.action == Action.TAP)
-                    presenter.onCorrectSwipe() else presenter.onWrongSwipe(PENALTY)
-                swipeView.doSwipe(true)
+                if (it.action == Action.TAP) {
+                    presenter.onCorrectSwipe()
+                    currentTime += PENALTY
+                }
+                swipeView.doSwipe(false)
             }
 
             override fun onItemSwipedLeft(square: Square) {
