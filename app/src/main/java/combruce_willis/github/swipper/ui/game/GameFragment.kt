@@ -13,6 +13,7 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.yuyakaido.android.cardstackview.CardStackView
 import com.yuyakaido.android.cardstackview.SwipeDirection
 import combruce_willis.github.swipper.R
+import combruce_willis.github.swipper.R.id.cv_squares
 import combruce_willis.github.swipper.data.Square
 import combruce_willis.github.swipper.data.SquaresRepository
 import kotlinx.android.synthetic.main.fragment_game.*
@@ -52,33 +53,33 @@ class GameFragment : Fragment(), GameFragmentView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        cv_squares.setCardEventListener(object : CardStackView.CardEventListener {
-            override fun onCardDragging(percentX: Float, percentY: Float) {
-
-            }
-
-            override fun onCardReversed() {
-            }
-
-            override fun onCardMovedToOrigin() {
-            }
-
-            override fun onCardClicked(index: Int) {
-            }
-
-            override fun onCardSwiped(direction: SwipeDirection?) {
-
-            }
-
-
-        })
-        adapter = CardAdapter(context!!, object : TouchCallback {
-            override fun onItemTapped(square: Square) {
-
-            }
-
-        })
-        cv_squares.setAdapter(adapter)
+//        cv_squares.setCardEventListener(object : CardStackView.CardEventListener {
+//            override fun onCardDragging(percentX: Float, percentY: Float) {
+//
+//            }
+//
+//            override fun onCardReversed() {
+//            }
+//
+//            override fun onCardMovedToOrigin() {
+//            }
+//
+//            override fun onCardClicked(index: Int) {
+//            }
+//
+//            override fun onCardSwiped(direction: SwipeDirection?) {
+//
+//            }
+//
+//
+//        })
+//        adapter = CardAdapter(context!!, object : TouchCallback {
+//            override fun onItemTapped(square: Square) {
+//
+//            }
+//
+//        })
+//        cv_squares.setAdapter(adapter)
         repository = SquaresRepository()
         presenter = GameFragmentPresenter(this, repository)
     }
