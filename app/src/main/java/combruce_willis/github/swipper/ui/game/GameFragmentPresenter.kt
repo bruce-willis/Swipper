@@ -18,7 +18,10 @@ class GameFragmentPresenter(_view : GameFragmentView?,
         view = _view
     }
 
-    fun requestNewSquares(quantity : Int) = repository.getSquares(quantity)
+    fun requestNewSquares(quantity : Int) {
+        val squares = repository.getSquares(quantity)
+        view?.onItemsReceived(squares)
+    }
 
     fun setUpTimerTask() {
         timerDisposable = Observable.interval(1, TimeUnit.SECONDS)
@@ -26,6 +29,11 @@ class GameFragmentPresenter(_view : GameFragmentView?,
             .observeOn(AndroidSchedulers.mainThread())
                 .subscribe { view?.updateCurrentTime() }
 
+    }
+
+    fun onGameOver() {
+        timerDisposable.dispose()
+        view?.onGameOver()
     }
 
     fun onWrongSwipe(penalty : Int) {
