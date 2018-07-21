@@ -8,18 +8,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.afollestad.materialdialogs.DialogAction
-import com.afollestad.materialdialogs.MaterialDialog
-import com.yuyakaido.android.cardstackview.CardStackView
-import com.yuyakaido.android.cardstackview.SwipeDirection
 import combruce_willis.github.swipper.R
-import combruce_willis.github.swipper.R.id.cv_squares
 import combruce_willis.github.swipper.data.Square
 import combruce_willis.github.swipper.data.SquaresRepository
-<<<<<<< HEAD
 import combruce_willis.github.swipper.ui.Card
-=======
->>>>>>> master
 import kotlinx.android.synthetic.main.fragment_game.*
 
 class GameFragment : Fragment(), GameFragmentView {
@@ -27,7 +19,6 @@ class GameFragment : Fragment(), GameFragmentView {
     private var listener: OnFragmentInteractionListener? = null
     private lateinit var presenter: GameFragmentPresenter
     private lateinit var repository: SquaresRepository
-    private lateinit var adapter : CardAdapter
 
     private var currentTime = INITIAL_TIME
     private var maxScore = 0
@@ -45,14 +36,13 @@ class GameFragment : Fragment(), GameFragmentView {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-<<<<<<< HEAD
+
         if (context is OnFragmentInteractionListener) {
             listener = context
         } else {
             //throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
         }
-=======
->>>>>>> master
+
         maxScore = context
                 .getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
                 .getInt("max_score", 0)
@@ -94,7 +84,6 @@ class GameFragment : Fragment(), GameFragmentView {
 //        cv_squares.setAdapter(adapter)
         repository = SquaresRepository()
         presenter = GameFragmentPresenter(this, repository)
-<<<<<<< HEAD
         squares = presenter.requestNewSquares(SQUARES_STACK_SIZE)
 
 //        swipeView!!.builder
@@ -107,15 +96,11 @@ class GameFragment : Fragment(), GameFragmentView {
     }
 
 
-    override fun onItemsRecieved(squares: List<Square>) {
-
-=======
-    }
 
     override fun onItemsReceived(squares: MutableList<Square>?) {
         Log.i("TAG","ON ITEMS RECEIVED ${squares?.size}")
-        adapter.updateDataSet(squares)
->>>>>>> master
+        //adapter.updateDataSet(squares)
+
     }
 
     override fun updateCurrentTime() {
@@ -138,18 +123,18 @@ class GameFragment : Fragment(), GameFragmentView {
     }
 
     override fun onGameOver() {
-        MaterialDialog.Builder(context!!)
-                .title(R.string.game_over)
-                .content("Вы проиграли! :( Ваш счет: $score")
-                .positiveText("Пропробовать снова")
-                .onPositive { dialog, which ->
-                    score = 0
-                    presenter.requestNewSquares(100)
-                    presenter.setUpTimerTask()
-                    currentTime = INITIAL_TIME
-                    score = 0
-                }
-                .show()
+//        MaterialDialog.Builder(context!!)
+//                .title(R.string.game_over)
+//                .content("Вы проиграли! :( Ваш счет: $score")
+//                .positiveText("Пропробовать снова")
+//                .onPositive { dialog, which ->
+//                    score = 0
+//                    presenter.requestNewSquares(100)
+//                    presenter.setUpTimerTask()
+//                    currentTime = INITIAL_TIME
+//                    score = 0
+//                }
+//                .show()
     }
 
     override fun onResume() {
