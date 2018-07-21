@@ -7,11 +7,7 @@ class SquaresRepository {
     private val randomAction = Random()
 
     fun getSquares(quantity : Int): MutableList<Square> {
-        val squares = mutableListOf<Square>()
-        for (i in 1..quantity) {
-            squares.add(createRandomSquare())
-        }
-        return squares
+        return MutableList(quantity) {createRandomSquare()}
     }
 
     private fun createRandomSquare(): Square {

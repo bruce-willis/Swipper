@@ -44,6 +44,13 @@ class GameFragment : Fragment(), GameFragmentView {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
+
+        if (context is OnFragmentInteractionListener) {
+            listener = context
+        } else {
+            //throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
+        }
+
         maxScore = context
                 .getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
                 .getInt("max_score", 0)
@@ -69,6 +76,8 @@ class GameFragment : Fragment(), GameFragmentView {
         presenter = GameFragmentPresenter(this, repository)
         presenter.requestNewSquares(SQUARES_STACK_SIZE)
     }
+
+
 
     override fun onItemsReceived(squares: MutableList<Square>?) {
         squares?.forEach { swipeView.addView(Card(it, object : GameFragment.TouchCallback {
