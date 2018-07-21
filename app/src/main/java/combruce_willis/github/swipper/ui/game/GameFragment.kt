@@ -10,6 +10,8 @@ import android.view.ViewGroup
 import combruce_willis.github.swipper.R
 import combruce_willis.github.swipper.data.Square
 import combruce_willis.github.swipper.data.SquaresRepository
+import combruce_willis.github.swipper.ui.Card
+import kotlinx.android.synthetic.main.fragment_game.*
 
 class GameFragment : Fragment(), GameFragmentView {
 
@@ -35,7 +37,7 @@ class GameFragment : Fragment(), GameFragmentView {
         if (context is OnFragmentInteractionListener) {
             listener = context
         } else {
-            throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
+            //throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
         }
         maxScore = context
                 .getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
@@ -52,7 +54,16 @@ class GameFragment : Fragment(), GameFragmentView {
         repository = SquaresRepository()
         presenter = GameFragmentPresenter(this, repository)
         squares = presenter.requestNewSquares(SQUARES_STACK_SIZE)
+
+//        swipeView!!.builder
+//                .setDisplayViewCount(4)
+
+
+        for (square in squares) {
+            swipeView!!.addView(Card(square, presenter))
+        }
     }
+
 
     override fun onItemsRecieved(squares: List<Square>) {
 
