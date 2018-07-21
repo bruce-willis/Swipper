@@ -1,0 +1,4 @@
+<resources>
+    <dimen name="launcher_record_size">20sp</dimen>
+    <dimen name="launcher_button_size">24sp</dimen>
+</resources>
