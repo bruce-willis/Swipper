@@ -1,4 +1,4 @@
-package combruce_willis.github.swipper
+package combruce_willis.github.swipper.ui
 
 import android.content.Context
 import android.net.Uri
@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import combruce_willis.github.swipper.R
 
 class GameFragment : Fragment() {
     private var listener: OnFragmentInteractionListener? = null

@@ -1,8 +1,9 @@
-package combruce_willis.github.swipper
+package combruce_willis.github.swipper.ui
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
+import combruce_willis.github.swipper.R
 
 class MainActivity : AppCompatActivity(), LauncherFragment.OnScreenOpenListener {
 
