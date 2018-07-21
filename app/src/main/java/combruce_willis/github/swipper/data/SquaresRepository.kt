@@ -4,11 +4,12 @@ import java.util.*
 
 class SquaresRepository {
 
-    fun getSquares(quantity : Int) {
+    fun getSquares(quantity : Int): MutableList<Square> {
         val squares = mutableListOf<Square>()
         for (i in 1..quantity) {
             squares.add(createRandomSquare())
         }
+        return squares
     }
 
     private fun createRandomSquare(): Square {
