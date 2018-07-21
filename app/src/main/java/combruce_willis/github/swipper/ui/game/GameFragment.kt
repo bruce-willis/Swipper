@@ -67,7 +67,7 @@ class GameFragment : Fragment(), GameFragmentView {
                         .isAnimateScale(true))
         repository = SquaresRepository()
         presenter = GameFragmentPresenter(this, repository)
-        presenter.requestNewSquares(50)
+        presenter.requestNewSquares(SQUARES_STACK_SIZE)
     }
 
     override fun onItemsReceived(squares: MutableList<Square>?) {
@@ -128,7 +128,7 @@ class GameFragment : Fragment(), GameFragmentView {
                 .positiveText("Пропробовать снова")
                 .onPositive { dialog, which ->
                     score = 0
-                    presenter.requestNewSquares(100)
+                    presenter.requestNewSquares(SQUARES_STACK_SIZE)
                     presenter.setUpTimerTask()
                     currentTime = INITIAL_TIME
                     score = 0
