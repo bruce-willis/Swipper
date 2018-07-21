@@ -6,6 +6,7 @@ interface GameFragmentView {
     fun onItemsReceived(squares : MutableList<Square>?)
     fun updateCurrentTime()
     fun onCorrectSwipe()
-    fun onWrongSwipe(penalty : Int)
+    fun onWrongSwipe()
     fun onGameOver()
+    fun removeAndAdd()
 }

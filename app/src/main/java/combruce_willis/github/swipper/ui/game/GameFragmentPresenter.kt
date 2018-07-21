@@ -38,12 +38,16 @@ class GameFragmentPresenter(_view : GameFragmentView?,
         view?.onGameOver()
     }
 
-    fun onWrongSwipe(penalty : Int) {
-        view?.onWrongSwipe(penalty)
+    fun onWrongSwipe() {
+        view?.onWrongSwipe()
     }
 
     fun onCorrectSwipe() {
         view?.onCorrectSwipe()
+    }
+
+    fun removeAndAdd() {
+        view?.removeAndAdd()
     }
 
     fun onDetach() {

@@ -1,6 +1,7 @@
 package combruce_willis.github.swipper.ui.game
 
 import android.content.Context
+import android.content.res.Resources
 import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -8,6 +9,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.mindorks.placeholderview.SwipeDecor
+import com.mindorks.placeholderview.SwipePlaceHolderView.SWIPE_TYPE_HORIZONTAL
 import combruce_willis.github.swipper.R
 import combruce_willis.github.swipper.data.Square
 import combruce_willis.github.swipper.data.SquaresRepository
@@ -25,11 +28,11 @@ class GameFragment : Fragment(), GameFragmentView {
     private var score = 0
 
     companion object {
-       private const val SQUARES_STACK_SIZE = 50
-       private const val EXTRA_TIME = 1
-       private const val PENALTY = 2
-       private const val INITIAL_TIME = 5
-       fun newInstance() = GameFragment()
+        private const val SQUARES_STACK_SIZE = 5
+        private const val EXTRA_TIME = 1
+        private const val PENALTY = 2
+        private const val INITIAL_TIME = 5
+        fun newInstance() = GameFragment()
     }
 
     private var squares = mutableListOf<Square>()
@@ -53,54 +56,34 @@ class GameFragment : Fragment(), GameFragmentView {
         return inflater.inflate(R.layout.fragment_game, container, false)
     }
 
+    fun dpToPx(dp: Int): Int {
+        return (dp * Resources.getSystem().displayMetrics.density).toInt()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        cv_squares.setCardEventListener(object : CardStackView.CardEventListener {
-//            override fun onCardDragging(percentX: Float, percentY: Float) {
-//
-//            }
-//
-//            override fun onCardReversed() {
-//            }
-//
-//            override fun onCardMovedToOrigin() {
-//            }
-//
-//            override fun onCardClicked(index: Int) {
-//            }
-//
-//            override fun onCardSwiped(direction: SwipeDirection?) {
-//
-//            }
-//
-//
-//        })
-//        adapter = CardAdapter(context!!, object : TouchCallback {
-//            override fun onItemTapped(square: Square) {
-//
-//            }
-//
-//        })
-//        cv_squares.setAdapter(adapter)
         repository = SquaresRepository()
         presenter = GameFragmentPresenter(this, repository)
         squares = presenter.requestNewSquares(SQUARES_STACK_SIZE)
 
-//        swipeView!!.builder
-//                .setDisplayViewCount(4)
+        swipeView!!.builder
+                .setSwipeType(SWIPE_TYPE_HORIZONTAL)
+                .setSwipeHorizontalThreshold(1)
+                .setSwipeDecor(SwipeDecor()
+                        .setSwipeAnimTime(1))
 
-
-        for (square in squares) {
-            swipeView!!.addView(Card(square, presenter))
+        swipeView!!.addItemRemoveListener {
+            run {
+                if ((it+ 1) % SQUARES_STACK_SIZE == 0)
+                    presenter.requestNewSquares(SQUARES_STACK_SIZE)
+            }
         }
     }
 
-
-
     override fun onItemsReceived(squares: MutableList<Square>?) {
-        Log.i("TAG","ON ITEMS RECEIVED ${squares?.size}")
-        //adapter.updateDataSet(squares)
-
+        for (square in squares!!) {
+            swipeView!!.addView(Card(square, presenter))
+        }
     }
 
     override fun updateCurrentTime() {
@@ -114,12 +97,20 @@ class GameFragment : Fragment(), GameFragmentView {
 
     override fun onCorrectSwipe() {
         currentTime += EXTRA_TIME
-        score += 0
+        tv_time.text = currentTime.toString()
+        score += 1
+        tv_score.text = score.toString()
         if (score > maxScore) maxScore = score
     }
 
-    override fun onWrongSwipe(penalty: Int) {
-        currentTime -= penalty
+    override fun removeAndAdd() {
+        swipeView!!.removeAllViews()
+        presenter.requestNewSquares(SQUARES_STACK_SIZE)
+    }
+
+    override fun onWrongSwipe() {
+        currentTime -= PENALTY
+        tv_time.text = currentTime.toString()
     }
 
     override fun onGameOver() {
@@ -155,6 +146,6 @@ class GameFragment : Fragment(), GameFragmentView {
     }
 
     interface TouchCallback {
-        fun onItemTapped(square : Square)
+        fun onItemTapped(square: Square)
     }
 }
