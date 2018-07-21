@@ -6,4 +6,7 @@
 
     <string name="play_button_title">play</string>
     <string name="tutorial_button_title">tutorial</string>
+
+    <string name="game_game_over">Game over</string>
+    <string name="game_try_again">Try again</string>
 </resources>

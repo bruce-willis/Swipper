@@ -1,44 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tool="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_width="match_parent">
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="@dimen/game_upper_padding"
-        android:paddingRight="@dimen/game_upper_padding">
-
-        <TextView
-            android:id="@+id/textViewTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:text="TextView"
-            android:textColor="#00AAFE"
-            android:textSize="@dimen/game_score_size"
-            android:textStyle="bold"
-            tool:text="01:52"/>
-
-        <TextView
-            android:id="@+id/textViewScore"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TextView"
-            android:textColor="#00DB8E"
-            android:textSize="@dimen/game_score_size"
-            android:textStyle="bold"
-            tool:text="23"/>
-    </FrameLayout>
-
-    <FrameLayout
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tool="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:id="@+id/swipe_container">
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/game_upper_padding"
+            android:paddingRight="@dimen/game_upper_padding">
+
+            <TextView
+                android:id="@+id/textViewTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:text="TextView"
+                android:textColor="#00AAFE"
+                android:textSize="@dimen/game_font_size"
+                android:textStyle="bold"
+                tool:text="01:52"/>
+
+            <TextView
+                android:id="@+id/textViewScore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textColor="#00DB8E"
+                android:textSize="@dimen/game_font_size"
+                android:textStyle="bold"
+                tool:text="23"/>
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/swipe_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/game_over_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#55ff0000"
+        android:visibility="invisible"
+        tool:visibility="visible">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textViewGameOver"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/game_game_over"
+                android:textSize="@dimen/game_font_size"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/textViewAgain"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/game_try_again"
+                android:textColor="#3AE2CE"
+                android:textSize="@dimen/game_font_size"
+                android:textStyle="bold"/>
+        </LinearLayout>
 
     </FrameLayout>
-</LinearLayout>
+</FrameLayout>
