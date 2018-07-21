@@ -3,9 +3,12 @@ package combruce_willis.github.swipper.ui.view
 import android.graphics.Color
 import android.support.v7.widget.CardView
 import android.widget.ImageView
+import com.mindorks.placeholderview.SwipeDirection
 import com.mindorks.placeholderview.annotations.*
 import com.mindorks.placeholderview.annotations.swipe.SwipeIn
+import com.mindorks.placeholderview.annotations.swipe.SwipeInDirectional
 import com.mindorks.placeholderview.annotations.swipe.SwipeOut
+import com.mindorks.placeholderview.annotations.swipe.SwipeOutDirectional
 import combruce_willis.github.swipper.R
 import combruce_willis.github.swipper.data.Action
 import combruce_willis.github.swipper.data.Square
@@ -36,6 +39,8 @@ class Card(private val square: Square, var callback : GameFragment.TouchCallback
                 when (square.action) {
                     Action.LEFT -> R.drawable.ic_arrow_back_black_24dp
                     Action.RIGHT -> R.drawable.ic_arrow_right_black_24dp
+                    Action.DOWN -> R.drawable.ic_arrow_down_black_24dp
+                    Action.UP -> R.drawable.ic_arrow_up_24dp
                     else -> R.drawable.ic_fingerprint_24dp
                 }
         )
@@ -46,13 +51,29 @@ class Card(private val square: Square, var callback : GameFragment.TouchCallback
         callback.onItemTapped(square)
     }
 
-    @SwipeOut
-    fun onSwipedOut() {
-        callback.onItemSwipedLeft(square)
+//    @SwipeOut
+//    fun onSwipedOut() {
+//        callback.onItemSwipedLeft(square)
+//    }
+//
+//    @SwipeIn
+//    fun onSwipeIn() {
+//        callback.onItemSwipedRight(square)
+//    }
+
+    @SwipeOutDirectional
+    fun onSwipeOutDirectional(direction : SwipeDirection?) {
+        when(direction) {
+            SwipeDirection.LEFT -> callback.onItemSwipedLeft(square)
+            SwipeDirection.TOP -> callback.onItemSwipedUp(square)
+        }
     }
 
-    @SwipeIn
-    fun onSwipeIn() {
-        callback.onItemSwipedRight(square)
+    @SwipeInDirectional
+    fun onSwipeInDirectional(direction : SwipeDirection?) {
+        when(direction) {
+            SwipeDirection.RIGHT -> callback.onItemSwipedRight(square)
+            SwipeDirection.BOTTOM -> callback.onItemSwipedDown(square)
+        }
     }
 }

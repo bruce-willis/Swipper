@@ -15,9 +15,11 @@ class SquaresRepository {
     }
 
     private fun createRandomSquare(): Square {
-        return when (randomAction.nextInt(3)) {
+        return when (randomAction.nextInt(5)) {
             0 -> Square(Action.LEFT)
             1 -> Square(Action.RIGHT)
+            2 -> Square(Action.DOWN)
+            3 -> Square(Action.UP)
             else -> {
                 Square(Action.TAP)
             }

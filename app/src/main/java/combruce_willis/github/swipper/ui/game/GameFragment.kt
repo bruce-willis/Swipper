@@ -58,8 +58,8 @@ class GameFragment : Fragment(), GameFragmentView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         swipeView.builder
-                .setSwipeType(SWIPE_TYPE_HORIZONTAL)
-                .setSwipeHorizontalThreshold(30)
+                .setSwipeHorizontalThreshold(500)
+                .setSwipeVerticalThreshold(500)
                 .setSwipeDecor(SwipeDecor()
                         .setSwipeAnimFactor(0.1f)
                         .setSwipeAnimTime(0)
