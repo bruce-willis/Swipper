@@ -1,4 +1,4 @@
-package combruce_willis.github.swipper.ui
+package combruce_willis.github.swipper.ui.game
 
 import combruce_willis.github.swipper.data.Square
 

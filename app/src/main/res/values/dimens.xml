@@ -2,6 +2,6 @@
     <dimen name="launcher_record_size">20sp</dimen>
     <dimen name="launcher_button_size">24sp</dimen>
 
-    <dimen name="game_score_size">42dp</dimen>
-    <dimen name="game_upper_padding">16dp</dimen>
+    <dimen name="game_score_size">42sp</dimen>
+    <dimen name="game_upper_padding">16sp</dimen>
 </resources>
