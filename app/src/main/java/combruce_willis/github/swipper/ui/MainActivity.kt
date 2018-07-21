@@ -10,6 +10,7 @@ import combruce_willis.github.swipper.ui.game.GameFragment
 class MainActivity : AppCompatActivity(), LauncherFragment.OnScreenOpenListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val maxScore = this.getSharedPreferences("app_prefs", Context.MODE_PRIVATE).getInt("max_score", 0)
