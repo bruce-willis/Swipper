@@ -17,12 +17,16 @@ class CardAdapter(context: Context, _callback : GameFragment.TouchCallback) : Ar
     private val callback = _callback
 
     override fun getView(position: Int, contentView: View?, parent: ViewGroup): View {
-        val inflater = LayoutInflater.from(context)
-        val contentView = inflater.inflate(R.layout.item_square, parent, false)
-        val holder = ViewHolder(contentView)
-        val square = getItem(position)
+        val holder : ViewHolder
+        if (contentView == null) {
+            val inflater = LayoutInflater.from(context)
+            val contentView = inflater.inflate(R.layout.item_square, parent, false)
+            holder = ViewHolder(contentView)
+            contentView.tag = holder
+        } else holder = contentView.tag as ViewHolder
 
-        when (square.action) {
+
+        when (squares[position].action) {
             Action.UP -> holder.actionIv.setImageResource(R.drawable.ic_arrow_up_24dp)
             Action.DOWN -> holder.actionIv.setImageResource(R.drawable.ic_arrow_down_black_24dp)
             Action.LEFT -> holder.actionIv.setImageResource(R.drawable.ic_arrow_back_black_24dp)
@@ -30,11 +34,12 @@ class CardAdapter(context: Context, _callback : GameFragment.TouchCallback) : Ar
             Action.TAP -> holder.actionIv.setImageResource(R.drawable.ic_arrow_up_24dp)
         }
 
+
         holder.actionIv.setOnClickListener { callback.onItemTapped(squares[position]) }
+        contentView!!.tag = holder
 
-        contentView.tag = holder
 
-        return contentView
+        return contentView!!
     }
 
     fun updateDataSet(squares : MutableList<Square>?) {

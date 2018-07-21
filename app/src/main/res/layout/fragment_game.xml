@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    android:layout_width="match_parent"
+<RelativeLayout android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
         android:id="@+id/tv_time"
@@ -24,5 +24,13 @@
         android:textColor="@android:color/holo_blue_dark"
         android:textSize="30dp"
         android:layout_margin="16dp"/>
+
+    <com.mindorks.placeholderview.SwipeDirectionalView
+        android:id="@+id/swipeView"
+        android:layout_width="match_parent"
+        android:layout_below="@id/tv_score"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true">
+    </com.mindorks.placeholderview.SwipeDirectionalView>
 
 </RelativeLayout>
