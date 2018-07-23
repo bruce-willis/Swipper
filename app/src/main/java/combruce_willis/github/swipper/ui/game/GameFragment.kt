@@ -77,7 +77,7 @@ class GameFragment : Fragment(), GameFragmentView {
             override fun onItemTapped(square: Square) {
                 if (it.action == Action.TAP) {
                     presenter.onCorrectSwipe()
-                    currentTime += PENALTY
+                    currentTime += EXTRA_TIME
                 }
                 swipeView.doSwipe(false)
             }

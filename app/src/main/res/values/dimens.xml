@@ -4,4 +4,5 @@
 
     <dimen name="game_score_size">42sp</dimen>
     <dimen name="game_upper_padding">16sp</dimen>
+    <dimen name="launcher_button_padding">36dp</dimen>
 </resources>
